@@ -4,7 +4,7 @@ Strona internetowa marki MokejPol i jej flagowego produktu — Herbacianej, napo
 
 ## O projekcie
 
-MokejPol to marka założona w 2019 roku w Turawie (skrzyżowanie Harcerskiej i Biwakowej) przez pięciu przyjaciół:
+MokejPol to marka założona w 2018 roku w Turawie (skrzyżowanie Harcerskiej i Biwakowej) przez pięciu przyjaciół:
 
 - **M** — Michał Pierzyna
 - **O** — Oliwer Krupa
@@ -57,4 +57,4 @@ Ten projekt jest prywatną inicjatywą, której celem jest zachowanie kawałka n
 
 ## Licencja
 
-Wszelkie prawa zastrzeżone. MokejPol &copy; 2019
+Wszelkie prawa zastrzeżone. MokejPol &copy; 2018
