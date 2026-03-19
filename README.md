@@ -51,6 +51,10 @@ MokejPol/
 
 Otwórz `index.html` w przeglądarce. Nie wymaga serwera ani budowania.
 
+## Cel projektu
+
+Ten projekt jest prywatną inicjatywą, której celem jest zachowanie kawałka naszej wspólnej historii. To, co zaczęło się od wieczoru przy ognisku w Turawie, zasługuje na to, by nie zostać zapomniane — ta strona jest naszą cyfrową kapsułą czasu.
+
 ## Licencja
 
 Wszelkie prawa zastrzeżone. MokejPol &copy; 2019
