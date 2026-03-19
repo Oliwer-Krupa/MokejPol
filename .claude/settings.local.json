@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(mv \"ChatGPT Image 19 mar 2026, 13_02_26.png\" \"herbaciana-etykieta.png\")",
+      "Bash(mv \"MokejPol_Przezroczyste.png\" \"mokejpol-logo.png\")",
+      "Bash(mv \"malinowa.png\" \"herbaciana-malinowa-05l.png\")",
+      "Bash(mv \"malinowa 1l.png\" \"herbaciana-malinowa-1l.png\")",
+      "Bash(mv \"miętowa.png\" \"herbaciana-mietowa-05l.png\")"
+    ]
+  }
+}

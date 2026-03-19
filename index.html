@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MokejPol — Herbaciana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Josefin+Sans:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --wood-dark: #3b2810;
+  --wood-mid: #5c3d1e;
+  --wood-light: #8b6239;
+  --wood-pale: #c4a265;
+  --forest-deep: #1a3a2a;
+  --forest-mid: #2d5a3d;
+  --forest-light: #4a7c5c;
+  --lake-deep: #1a4a5a;
+  --lake-mid: #2a7a8a;
+  --lake-light: #5ab5b5;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a0;
+  --cream: #f5edd6;
+  --cream-dark: #e8dcc0;
+  --parchment: #f0e6ce;
+  --text-dark: #2a1f0e;
+  --text-mid: #5c4a2e;
+  --raspberry: #c43a5c;
+  --mint: #4a8a5c;
+  --strawberry: #d44a3a;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  color: var(--text-dark);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   WOOD GRAIN TEXTURE MIXIN (CSS-only)
+   ============================================ */
+
+.wood-bg {
+  background:
+    repeating-linear-gradient(
+      87deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 30px,
+      rgba(0,0,0,0.04) 30px,
+      rgba(0,0,0,0.04) 31px
+    ),
+    linear-gradient(
+      180deg,
+      var(--wood-mid) 0%,
+      var(--wood-dark) 20%,
+      var(--wood-mid) 40%,
+      #4a2e14 60%,
+      var(--wood-mid) 80%,
+      var(--wood-dark) 100%
+    );
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  transition: all 0.5s ease;
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(42, 31, 14, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.6rem 2rem;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+nav a:hover { opacity: 1; }
+nav a:hover::after { width: 100%; }
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* Deep forest lake gradient */
+  background:
+    /* Subtle noise texture */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+    /* Tree silhouette layer */
+    linear-gradient(
+      180deg,
+      #0d1f15 0%,
+      #132b1e 15%,
+      #1a3a28 30%,
+      #1e4433 45%,
+      #1a4a5a 65%,
+      #1d5a6a 78%,
+      #1a3a2a 100%
+    );
+}
+
+/* Fog / mist layers */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 40% at 50% 55%, rgba(200,210,200,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 30% at 30% 60%, rgba(180,200,190,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 25% at 70% 50%, rgba(160,190,180,0.05) 0%, transparent 50%);
+  animation: mistDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes mistDrift {
+  0% { opacity: 0.6; transform: translateX(-10px); }
+  100% { opacity: 1; transform: translateX(10px); }
+}
+
+/* Reflected light on water effect */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 8px,
+      rgba(90,180,180,0.02) 8px,
+      rgba(90,180,180,0.02) 9px
+    ),
+    linear-gradient(180deg, transparent 0%, rgba(26,74,90,0.3) 50%, rgba(20,50,60,0.5) 100%);
+}
+
+/* Fireflies */
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px 2px rgba(201,168,76,0.4), 0 0 15px 5px rgba(201,168,76,0.15);
+  z-index: 1;
+  opacity: 0;
+}
+
+.firefly:nth-child(1) { top: 25%; left: 15%; animation: fireflyFloat 6s 0s ease-in-out infinite; }
+.firefly:nth-child(2) { top: 40%; left: 80%; animation: fireflyFloat 8s 2s ease-in-out infinite; }
+.firefly:nth-child(3) { top: 60%; left: 25%; animation: fireflyFloat 7s 4s ease-in-out infinite; }
+.firefly:nth-child(4) { top: 35%; left: 60%; animation: fireflyFloat 9s 1s ease-in-out infinite; }
+.firefly:nth-child(5) { top: 55%; left: 45%; animation: fireflyFloat 6.5s 3s ease-in-out infinite; }
+.firefly:nth-child(6) { top: 70%; left: 70%; animation: fireflyFloat 7.5s 5s ease-in-out infinite; }
+
+@keyframes fireflyFloat {
+  0%, 100% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 0.8; }
+  50% { opacity: 0.3; transform: translate(20px, -15px) scale(1); }
+  80% { opacity: 0.9; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-logo {
+  width: min(280px, 60vw);
+  margin-bottom: 2.5rem;
+  filter: drop-shadow(0 0 30px rgba(90,180,180,0.2));
+  animation: logoReveal 2s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes logoReveal {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); filter: drop-shadow(0 0 0px rgba(90,180,180,0)); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 30px rgba(90,180,180,0.2)); }
+}
+
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 1.5s 0.8s ease-out forwards;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 1.5s 1.3s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 2s ease-out forwards;
+}
+
+.scroll-indicator span {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.5;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 1px solid var(--gold-light);
+  border-bottom: 1px solid var(--gold-light);
+  transform: rotate(45deg);
+  opacity: 0.4;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+  50% { transform: rotate(45deg) translateY(6px); opacity: 0.7; }
+}
+
+/* ============================================
+   SECTION TRANSITIONS — LEAF DIVIDERS
+   ============================================ */
+
+.section-divider {
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-divider svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   HISTORIA SECTION
+   ============================================ */
+
+.historia {
+  position: relative;
+  padding: 6rem 2rem;
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
+    linear-gradient(175deg, var(--cream) 0%, var(--parchment) 50%, var(--cream-dark) 100%);
+}
+
+.historia::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 10%, var(--wood-pale) 50%, transparent 90%);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--lake-mid);
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 300;
+  color: var(--wood-dark);
+  line-height: 1.1;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--forest-mid);
+}
+
+.historia-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.historia-text {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 1s ease;
+}
+
+.historia-text.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.historia-text p {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--text-mid);
+  margin-bottom: 1.5rem;
+}
+
+.historia-text p:first-of-type::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.5rem;
+  margin-top: 0.1rem;
+  color: var(--forest-deep);
+}
+
+.historia-image {
+  position: relative;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 1s 0.2s ease;
+}
+
+.historia-image.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.label-frame {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.label-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--wood-pale);
+  transform: rotate(2deg);
+  opacity: 0.4;
+}
+
+.label-frame::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid var(--gold);
+  transform: rotate(-1deg);
+  opacity: 0.3;
+}
+
+.label-frame img {
+  max-width: 100%;
+  max-height: 450px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow:
+    0 10px 40px rgba(59,40,16,0.2),
+    0 2px 10px rgba(59,40,16,0.1);
+  transition: transform 0.6s ease;
+}
+
+.label-frame:hover img {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+/* ============================================
+   NAZWA SECTION
+   ============================================ */
+
+.nazwa {
+  position: relative;
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.nazwa-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      88deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,0.02) 3px,
+      rgba(255,255,255,0.02) 5px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.015) 40px,
+      rgba(255,255,255,0.015) 41px
+    ),
+    linear-gradient(
+      180deg,
+      #3a2510 0%,
+      #4a3018 25%,
+      #3d2812 50%,
+      #4a3018 75%,
+      #352010 100%
+    );
+}
+
+/* Knot detail */
+.nazwa-bg::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 60px;
+  top: 30%;
+  right: 10%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(30,15,5,0.3) 0%, rgba(50,30,15,0.1) 50%, transparent 70%);
+}
+
+.nazwa-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.nazwa .section-label { color: var(--gold); }
+.nazwa .section-title { color: var(--cream); }
+.nazwa .section-title em { color: var(--gold); }
+
+.nazwa-explanation {
+  margin: 3rem auto;
+  max-width: 650px;
+}
+
+.nazwa-breakdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.nazwa-part {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.nazwa-part.mokej { color: var(--lake-light); }
+.nazwa-part.pol { color: var(--gold); }
+.nazwa-part-divider {
+  font-size: 3rem;
+  color: var(--wood-pale);
+  opacity: 0.4;
+}
+
+.nazwa-desc {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--cream-dark);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.nazwa-desc strong {
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+/* Founders */
+.founders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.founder {
+  position: relative;
+  padding: 1.2rem 1.8rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(201,168,76,0.05);
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.founder.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.founder:hover {
+  border-color: rgba(201,168,76,0.5);
+  background: rgba(201,168,76,0.1);
+  transform: translateY(-3px);
+}
+
+.founder-initial {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.founder-name {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: var(--cream-dark);
+  text-transform: uppercase;
+}
+
+/* ============================================
+   SMAKI SECTION
+   ============================================ */
+
+.smaki {
+  position: relative;
+  padding: 6rem 2rem;
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
+    linear-gradient(175deg, var(--cream-dark) 0%, var(--cream) 40%, var(--parchment) 100%);
+}
+
+.smaki-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.flavor-card {
+  position: relative;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(92,61,30,0.1);
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(5px);
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.flavor-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.flavor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  transition: all 0.5s ease;
+}
+
+.flavor-card.malinowa::before { background: var(--raspberry); }
+.flavor-card.mietowa::before { background: var(--mint); }
+.flavor-card.truskawkowa::before { background: var(--strawberry); }
+
+.flavor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(59,40,16,0.12);
+  border-color: rgba(92,61,30,0.2);
+}
+
+.flavor-card:hover::before { width: 100%; }
+
+.flavor-label-img {
+  max-width: 220px;
+  width: 100%;
+  margin: 0 auto 1.5rem;
+  transition: transform 0.5s ease;
+}
+
+.flavor-card:hover .flavor-label-img {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.flavor-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.flavor-card.malinowa .flavor-name { color: var(--raspberry); }
+.flavor-card.mietowa .flavor-name { color: var(--mint); }
+.flavor-card.truskawkowa .flavor-name { color: var(--strawberry); }
+
+.flavor-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-mid);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.flavor-sizes {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--wood-light);
+}
+
+/* Raspberry decorative image */
+.smaki-deco {
+  max-width: 1200px;
+  margin: 4rem auto 0;
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.smaki-deco img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  filter: saturate(0.85) brightness(0.95);
+}
+
+.smaki-deco::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--cream) 0%, transparent 15%, transparent 85%, var(--cream) 100%),
+    linear-gradient(180deg, var(--cream) 0%, transparent 30%, transparent 70%, var(--cream) 100%);
+}
+
+/* ============================================
+   PRODUKT SECTION
+   ============================================ */
+
+.produkt {
+  position: relative;
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.produkt-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(26,58,42,0.95) 0%, rgba(13,31,21,0.98) 100%);
+}
+
+.produkt-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+/* Leaf pattern overlay */
+.produkt-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    radial-gradient(ellipse 15px 40px at 20% 30%, var(--forest-light) 0%, transparent 100%),
+    radial-gradient(ellipse 12px 35px at 75% 20%, var(--forest-light) 0%, transparent 100%),
+    radial-gradient(ellipse 18px 45px at 60% 70%, var(--forest-light) 0%, transparent 100%),
+    radial-gradient(ellipse 14px 38px at 35% 80%, var(--forest-light) 0%, transparent 100%),
+    radial-gradient(ellipse 16px 42px at 85% 55%, var(--forest-light) 0%, transparent 100%);
+}
+
+.produkt-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.produkt .section-label { color: var(--lake-light); }
+.produkt .section-title { color: var(--cream); }
+
+.produkt-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold-light);
+  line-height: 1.6;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease;
+}
+
+.produkt-quote.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.produkt-details {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.produkt-detail {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.8s ease;
+}
+
+.produkt-detail.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.produkt-detail-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--lake-light);
+  margin-bottom: 0.5rem;
+}
+
+.produkt-detail-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--cream);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+  position: relative;
+  padding: 3rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.footer-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      87deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    ),
+    linear-gradient(180deg, #2a1a0c 0%, #1e1208 100%);
+}
+
+footer > * { position: relative; z-index: 1; }
+
+.footer-logo {
+  width: 80px;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  filter: brightness(1.2);
+}
+
+.footer-est {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--wood-pale);
+  opacity: 0.6;
+  margin-bottom: 1.5rem;
+}
+
+.footer-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 1.5rem;
+  opacity: 0.3;
+}
+
+.footer-warning {
+  font-size: 0.8rem;
+  color: var(--wood-pale);
+  opacity: 0.4;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================================
+   SCROLL REVEAL UTILITY
+   ============================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 900px) {
+  .historia-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .historia-image { order: -1; }
+
+  .smaki-grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .founders {
+    gap: 1rem;
+  }
+
+  .founder {
+    padding: 1rem 1.4rem;
+  }
+
+  nav {
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+  }
+
+  .produkt-details {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .historia, .smaki, .nazwa, .produkt {
+    padding: 4rem 1.2rem;
+  }
+
+  nav {
+    gap: 0.6rem;
+  }
+
+  nav a {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+  }
+
+  .nazwa-breakdown {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nazwa-part-divider { display: none; }
+}
+
+/* ============================================
+   HORIZONTAL RULE / ORNAMENT
+   ============================================ */
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.ornament-line {
+  width: 60px;
+  height: 1px;
+}
+
+.ornament-line.light { background: rgba(201,168,76,0.3); }
+.ornament-line.dark { background: rgba(92,61,30,0.15); }
+
+.ornament-leaf {
+  width: 16px;
+  height: 16px;
+  opacity: 0.4;
+}
+
+.ornament-leaf.light svg { fill: var(--gold); }
+.ornament-leaf.dark svg { fill: var(--forest-mid); }
+
+/* ============================================
+   AGE GATE OVERLAY
+   ============================================ */
+
+.age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13,15,10,0.97);
+  backdrop-filter: blur(20px);
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.age-gate.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.age-gate-box {
+  text-align: center;
+  padding: 3rem;
+  max-width: 420px;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(42,26,12,0.5);
+}
+
+.age-gate-logo {
+  width: 100px;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.age-gate-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.age-gate-text {
+  font-size: 0.95rem;
+  color: var(--cream-dark);
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.age-gate-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.age-btn {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 0.9rem 2.5rem;
+  border: 1px solid var(--gold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: var(--gold);
+}
+
+.age-btn:hover {
+  background: var(--gold);
+  color: var(--wood-dark);
+}
+
+.age-btn.no {
+  border-color: rgba(201,168,76,0.3);
+  color: rgba(201,168,76,0.5);
+}
+
+.age-btn.no:hover {
+  background: rgba(201,168,76,0.1);
+  color: var(--gold);
+}
+</style>
+</head>
+<body>
+
+<!-- AGE VERIFICATION -->
+<div class="age-gate" id="ageGate">
+  <div class="age-gate-box">
+    <img src="image/mokejpol-logo.png" alt="MokejPol" class="age-gate-logo">
+    <h2 class="age-gate-title">Witaj w MokejPol</h2>
+    <p class="age-gate-text">Ta strona zawiera treści dotyczące napojów alkoholowych. Czy masz ukończone 18 lat?</p>
+    <div class="age-gate-buttons">
+      <button class="age-btn yes" onclick="enterSite()">Tak, mam 18 lat</button>
+      <button class="age-btn no" onclick="leaveSite()">Nie</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <a href="#hero">Start</a>
+  <a href="#historia">Historia</a>
+  <a href="#nazwa">Nazwa</a>
+  <a href="#smaki">Smaki</a>
+  <a href="#produkt">Produkt</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="firefly"></div>
+  <div class="firefly"></div>
+  <div class="firefly"></div>
+  <div class="firefly"></div>
+  <div class="firefly"></div>
+  <div class="firefly"></div>
+  <div class="hero-content">
+    <img src="image/mokejpol-logo.png" alt="MokejPol" class="hero-logo">
+    <p class="hero-tagline">&ldquo;Butelka nalana wielkiej pasji sumą,<br>szlachetna herbaciana olbrzymią naszą dumą.&rdquo;</p>
+    <p class="hero-subtitle">Found in Turawa, Poland</p>
+  </div>
+  <div class="scroll-indicator">
+    <span>Odkryj</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- HISTORIA -->
+<section class="historia" id="historia">
+  <div class="section-header reveal">
+    <span class="section-label">Rozdział Pierwszy</span>
+    <h2 class="section-title">Jak narodziła się <em>Herbaciana</em></h2>
+  </div>
+
+  <div class="historia-content" style="max-width: 800px; margin: 0 auto;">
+    <div class="historia-text" data-animate="slide-left">
+      <p>Rok 2019. Turawa, skrzyżowanie Harcerskiej i Biwakowej. Pięciu przyjaciół, letni wieczór i bezgraniczna ciekawość — tak zaczęła się historia Herbacianej. Co się stanie, gdy połączymy szlachetny spirytus z aromatyczną herbatą i naturalnym sokiem owocowym? Odpowiedź okazała się prostsza niż pytanie — powstanie coś wyjątkowego.</p>
+      <p>Pierwsza degustacja odbyła się przy ognisku, nad brzegiem jeziora. Smak był tak nieoczekiwanie harmonijny, że wiedzieliśmy — to nie był tylko eksperyment. To było odkrycie. Odkrycie, które zasługiwało na coś więcej niż wspomnienie.</p>
+
+      <div class="ornament">
+        <div class="ornament-line dark"></div>
+        <div class="ornament-leaf dark">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>
+        </div>
+        <div class="ornament-line dark"></div>
+      </div>
+
+      <p>Tamtego wieczoru zrodził się nie tylko napój, ale i marzenie. Marzenie o marce, która przeniesie ducha wspólnych chwil, polskiej natury i rzemieślniczej pasji do każdej butelki. Tak narodził się MokejPol.</p>
+
+      <p>Gdy emocje opadły, a ostatnie iskry ogniska dogasały, pięciu założycieli wiedziało, że ten moment trzeba uwiecznić. Nie mieli przy sobie ani papieru, ani notariusza — ale mieli determinację. Pierwszy zarys firmy MokejPol, uroczysta umowa założycielska, został spisany na tym, co było pod ręką — na papierze toaletowym. Na kruchym zwoju złożono pięć podpisów, deklarację o zachowaniu oryginalnej receptury, przysięgę wierności tradycji oraz spisano pierwotny przepis napoju. Ten skromny, lecz niezniszczalny duchem akt stał się symbolem tego, czym MokejPol jest do dziś — autentyczny, bez pretensji, zrodzony z czystej pasji.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NAZWA -->
+<section class="nazwa" id="nazwa">
+  <div class="nazwa-bg"></div>
+  <div class="nazwa-content">
+    <div class="section-header reveal">
+      <span class="section-label">Za nazwą</span>
+      <h2 class="section-title">Co kryje się w nazwie <em>MokejPol</em>?</h2>
+    </div>
+
+    <div class="nazwa-explanation reveal">
+      <div class="nazwa-breakdown">
+        <span class="nazwa-part mokej">Mokej</span>
+        <span class="nazwa-part-divider">&middot;</span>
+        <span class="nazwa-part pol">Pol</span>
+      </div>
+
+      <p class="nazwa-desc"><strong>Mokej</strong> — od pierwszych liter imion pięciu założycieli, którzy przy ognisku w Turawie stworzyli coś, co przetrwało próbę czasu.</p>
+      <p class="nazwa-desc"><strong>Pol</strong> — bo korzenie tej marki są głęboko polskie. Turawa, natura, przyjaciele — to nasza duma.</p>
+    </div>
+
+    <div class="ornament">
+      <div class="ornament-line light"></div>
+      <div class="ornament-leaf light">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>
+      </div>
+      <div class="ornament-line light"></div>
+    </div>
+
+    <div class="founders">
+      <div class="founder" data-delay="0">
+        <div class="founder-initial">M</div>
+        <div class="founder-name">Michał Pierzyna</div>
+      </div>
+      <div class="founder" data-delay="100">
+        <div class="founder-initial">O</div>
+        <div class="founder-name">Oliwer Krupa</div>
+      </div>
+      <div class="founder" data-delay="200">
+        <div class="founder-initial">K</div>
+        <div class="founder-name">Konrad Szolc</div>
+      </div>
+      <div class="founder" data-delay="300">
+        <div class="founder-initial">E</div>
+        <div class="founder-name">Eryk Szymendera</div>
+      </div>
+      <div class="founder" data-delay="400">
+        <div class="founder-initial">J</div>
+        <div class="founder-name">Jakub Wąsala</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SMAKI -->
+<section class="smaki" id="smaki">
+  <div class="section-header reveal">
+    <span class="section-label">Kolekcja</span>
+    <h2 class="section-title">Nasze <em>Smaki</em></h2>
+  </div>
+
+  <div class="smaki-grid">
+    <div class="flavor-card malinowa" data-delay="0">
+      <img src="image/herbaciana-malinowa-05l.png" alt="Herbaciana Malinowa" class="flavor-label-img">
+      <h3 class="flavor-name">Malinowa</h3>
+      <p class="flavor-desc">Słodycz letnich malin spleciona z aromatem herbaty — jak spacer przez leśną polanę w ciepły sierpniowy wieczór.</p>
+      <p class="flavor-sizes">0,5L &nbsp;&bull;&nbsp; 1L</p>
+    </div>
+
+    <div class="flavor-card mietowa" data-delay="150">
+      <img src="image/herbaciana-mietowa-05l.png" alt="Herbaciana Miętowa" class="flavor-label-img">
+      <h3 class="flavor-name">Miętowa</h3>
+      <p class="flavor-desc">Orzeźwiająca mięta i głębia herbacianego nalewu — jak poranny oddech nad jeziorem, gdy rosa jeszcze leży na trawie.</p>
+      <p class="flavor-sizes">0,2L &nbsp;&bull;&nbsp; 0,5L</p>
+    </div>
+
+    <div class="flavor-card truskawkowa" data-delay="300">
+      <img src="image/herbaciana-truskawkowa-05l.png" alt="Herbaciana Truskawkowa" class="flavor-label-img">
+      <h3 class="flavor-name">Truskawkowa</h3>
+      <p class="flavor-desc">Soczystość polskich truskawek w objęciach herbacianej tradycji — smak, który przywołuje wspomnienia beztroskich lat.</p>
+      <p class="flavor-sizes">0,5L</p>
+    </div>
+  </div>
+
+  <div class="smaki-deco reveal">
+    <img src="image/maliny-laski.jpg" alt="Maliny ze wzgórz Lasek">
+  </div>
+  <p class="reveal" style="max-width: 600px; margin: 2rem auto 0; text-align: center; font-style: italic; font-size: 1.05rem; line-height: 1.8; color: var(--text-mid); opacity: 0.8;">Nasze maliny dojrzewają na słonecznych wzgórzach Lasek, gdzie ciepły wiatr niesie zapach dzikiego lasu, a każdy owoc chłonie w sobie złoto letniego słońca.</p>
+</section>
+
+<!-- PRODUKT -->
+<section class="produkt" id="produkt">
+  <div class="produkt-bg"></div>
+  <div class="produkt-content">
+    <div class="section-header reveal">
+      <span class="section-label">Rzemiosło</span>
+      <h2 class="section-title">Każda butelka to historia</h2>
+    </div>
+
+    <blockquote class="produkt-quote" data-animate="fade">
+      Butelka nalana wielkiej pasji sumą,<br>
+      szlachetna herbaciana olbrzymią naszą dumą.
+    </blockquote>
+
+    <div class="produkt-details">
+      <div class="produkt-detail" data-animate="fade" data-delay="100">
+        <div class="produkt-detail-label">Zawartość alkoholu</div>
+        <div class="produkt-detail-value">10,5% obj.</div>
+      </div>
+      <div class="produkt-detail" data-animate="fade" data-delay="200">
+        <div class="produkt-detail-label">Pochodzenie</div>
+        <div class="produkt-detail-value">Turawa, Polska</div>
+      </div>
+      <div class="produkt-detail" data-animate="fade" data-delay="300">
+        <div class="produkt-detail-label">Rok powstania</div>
+        <div class="produkt-detail-value">2019</div>
+      </div>
+      <div class="produkt-detail" data-animate="fade" data-delay="400">
+        <div class="produkt-detail-label">Składniki</div>
+        <div class="produkt-detail-value">Szlachetny spirytus &middot; Herbata &middot; Sok</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bg"></div>
+  <img src="image/mokejpol-logo.png" alt="MokejPol" class="footer-logo">
+  <p class="footer-est">Est. 2019 &nbsp;&middot;&nbsp; Turawa, Poland</p>
+  <div class="footer-divider"></div>
+  <p class="footer-warning">Alkohol. Tylko dla osób pełnoletnich. Spożywaj odpowiedzialnie. Nadmierne spożywanie alkoholu szkodzi zdrowiu.</p>
+</footer>
+
+<script>
+// ============================================
+// AGE GATE
+// ============================================
+function enterSite() {
+  document.getElementById('ageGate').classList.add('hidden');
+  document.body.style.overflow = '';
+  sessionStorage.setItem('mokejpol_age', 'verified');
+}
+
+function leaveSite() {
+  window.location.href = 'https://www.google.com';
+}
+
+// Check if already verified
+if (sessionStorage.getItem('mokejpol_age') === 'verified') {
+  document.getElementById('ageGate').classList.add('hidden');
+} else {
+  document.body.style.overflow = 'hidden';
+}
+
+// ============================================
+// NAVBAR SCROLL EFFECT
+// ============================================
+const nav = document.getElementById('mainNav');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  if (scrollY > 80) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+  lastScroll = scrollY;
+}, { passive: true });
+
+// ============================================
+// INTERSECTION OBSERVER — SCROLL ANIMATIONS
+// ============================================
+const observerOptions = {
+  root: null,
+  rootMargin: '0px 0px -60px 0px',
+  threshold: 0.15
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const delay = parseInt(el.dataset.delay) || 0;
+      setTimeout(() => {
+        el.classList.add('visible');
+      }, delay);
+      observer.unobserve(el);
+    }
+  });
+}, observerOptions);
+
+// Observe all animated elements
+document.querySelectorAll('.reveal, .historia-text, .historia-image, .flavor-card, .founder, .produkt-quote, .produkt-detail')
+  .forEach(el => observer.observe(el));
+
+// ============================================
+// SMOOTH SCROLL FOR NAV LINKS
+// ============================================
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ============================================
+// SUBTLE PARALLAX ON HERO
+// ============================================
+const heroContent = document.querySelector('.hero-content');
+const heroSection = document.querySelector('.hero');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroH = heroSection.offsetHeight;
+  if (scrollY < heroH) {
+    const progress = scrollY / heroH;
+    heroContent.style.transform = `translateY(${scrollY * 0.25}px)`;
+    heroContent.style.opacity = 1 - progress * 1.2;
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
