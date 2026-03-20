@@ -1123,6 +1123,49 @@ footer > * { position: relative; z-index: 1; }
   background: rgba(201,168,76,0.1);
   color: var(--gold);
 }
+
+/* ============================================
+   LANGUAGE SWITCHER
+   ============================================ */
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 1rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid rgba(255,255,255,0.15);
+}
+
+.lang-btn {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+  padding: 0.3rem 0.5rem;
+}
+
+.lang-btn:hover {
+  opacity: 0.8;
+}
+
+.lang-btn.active {
+  opacity: 1;
+  color: var(--gold);
+}
+
+.lang-divider {
+  font-size: 0.7rem;
+  color: var(--cream);
+  opacity: 0.2;
+}
 </style>
 </head>
 <body>
@@ -1131,22 +1174,27 @@ footer > * { position: relative; z-index: 1; }
 <div class="age-gate" id="ageGate">
   <div class="age-gate-box">
     <img src="image/mokejpol-logo.png" alt="MokejPol" class="age-gate-logo">
-    <h2 class="age-gate-title">Witaj w MokejPol</h2>
-    <p class="age-gate-text">Ta strona zawiera treści dotyczące napojów alkoholowych. Czy masz ukończone 18 lat?</p>
+    <h2 class="age-gate-title" data-i18n="age_title">Witaj w MokejPol</h2>
+    <p class="age-gate-text" data-i18n="age_text">Ta strona zawiera treści dotyczące napojów alkoholowych. Czy masz ukończone 18 lat?</p>
     <div class="age-gate-buttons">
-      <button class="age-btn yes" onclick="enterSite()">Tak, mam 18 lat</button>
-      <button class="age-btn no" onclick="leaveSite()">Nie</button>
+      <button class="age-btn yes" onclick="enterSite()" data-i18n="age_yes">Tak, mam 18 lat</button>
+      <button class="age-btn no" onclick="leaveSite()" data-i18n="age_no">Nie</button>
     </div>
   </div>
 </div>
 
 <!-- NAVIGATION -->
 <nav id="mainNav">
-  <a href="#hero">Start</a>
-  <a href="#historia">Historia</a>
-  <a href="#nazwa">Nazwa</a>
-  <a href="#smaki">Smaki</a>
-  <a href="#produkt">Produkt</a>
+  <a href="#hero" data-i18n="nav_start">Start</a>
+  <a href="#historia" data-i18n="nav_historia">Historia</a>
+  <a href="#nazwa" data-i18n="nav_nazwa">Nazwa</a>
+  <a href="#smaki" data-i18n="nav_smaki">Smaki</a>
+  <a href="#produkt" data-i18n="nav_produkt">Produkt</a>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('pl')">PL</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1160,11 +1208,11 @@ footer > * { position: relative; z-index: 1; }
   <div class="firefly"></div>
   <div class="hero-content">
     <img src="image/mokejpol-logo.png" alt="MokejPol" class="hero-logo">
-    <p class="hero-tagline">&ldquo;Butelka nalana wielkiej pasji sumą,<br>szlachetna herbaciana olbrzymią naszą dumą.&rdquo;</p>
-    <p class="hero-subtitle">Found in Turawa, Poland</p>
+    <p class="hero-tagline" data-i18n-html="hero_tagline">&ldquo;Butelka nalana wielkiej pasji sumą,<br>szlachetna herbaciana olbrzymią naszą dumą.&rdquo;</p>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">Found in Turawa, Poland</p>
   </div>
   <div class="scroll-indicator">
-    <span>Odkryj</span>
+    <span data-i18n="hero_discover">Odkryj</span>
     <div class="scroll-arrow"></div>
   </div>
 </section>
@@ -1172,14 +1220,14 @@ footer > * { position: relative; z-index: 1; }
 <!-- HISTORIA -->
 <section class="historia" id="historia">
   <div class="section-header reveal">
-    <span class="section-label">Rozdział Pierwszy</span>
-    <h2 class="section-title">Jak narodziła się <em>Herbaciana</em></h2>
+    <span class="section-label" data-i18n="historia_label">Rozdział Pierwszy</span>
+    <h2 class="section-title" data-i18n-html="historia_title">Jak narodziła się <em>Herbaciana</em></h2>
   </div>
 
   <div class="historia-content" style="max-width: 800px; margin: 0 auto;">
     <div class="historia-text" data-animate="slide-left">
-      <p>Rok 2018. Turawa, skrzyżowanie Harcerskiej i Biwakowej. Pięciu przyjaciół, letni wieczór i bezgraniczna ciekawość — tak zaczęła się historia Herbacianej. Co się stanie, gdy połączymy szlachetny spirytus z aromatyczną herbatą i naturalnym sokiem owocowym? Odpowiedź okazała się prostsza niż pytanie — powstanie coś wyjątkowego.</p>
-      <p>Pierwsza degustacja odbyła się przy ognisku, nad brzegiem jeziora. Smak był tak nieoczekiwanie harmonijny, że wiedzieliśmy — to nie był tylko eksperyment. To było odkrycie. Odkrycie, które zasługiwało na coś więcej niż wspomnienie.</p>
+      <p data-i18n="historia_p1">Rok 2018. Turawa, skrzyżowanie Harcerskiej i Biwakowej. Pięciu przyjaciół, letni wieczór i bezgraniczna ciekawość — tak zaczęła się historia Herbacianej. Co się stanie, gdy połączymy szlachetny spirytus z aromatyczną herbatą i naturalnym sokiem owocowym? Odpowiedź okazała się prostsza niż pytanie — powstanie coś wyjątkowego.</p>
+      <p data-i18n="historia_p2">Pierwsza degustacja odbyła się przy ognisku, nad brzegiem jeziora. Smak był tak nieoczekiwanie harmonijny, że wiedzieliśmy — to nie był tylko eksperyment. To było odkrycie. Odkrycie, które zasługiwało na coś więcej niż wspomnienie.</p>
 
       <div class="ornament">
         <div class="ornament-line dark"></div>
@@ -1189,9 +1237,9 @@ footer > * { position: relative; z-index: 1; }
         <div class="ornament-line dark"></div>
       </div>
 
-      <p>Tamtego wieczoru zrodził się nie tylko napój, ale i marzenie. Marzenie o marce, która przeniesie ducha wspólnych chwil, polskiej natury i rzemieślniczej pasji do każdej butelki. Tak narodził się MokejPol.</p>
+      <p data-i18n="historia_p3">Tamtego wieczoru zrodził się nie tylko napój, ale i marzenie. Marzenie o marce, która przeniesie ducha wspólnych chwil, polskiej natury i rzemieślniczej pasji do każdej butelki. Tak narodził się MokejPol.</p>
 
-      <p>Gdy emocje opadły, a ostatnie iskry ogniska dogasały, pięciu założycieli wiedziało, że ten moment trzeba uwiecznić. Nie mieli przy sobie ani papieru, ani notariusza — ale mieli determinację. Pierwszy zarys firmy MokejPol, uroczysta umowa założycielska, został spisany na tym, co było pod ręką — na papierze toaletowym. Na kruchym zwoju złożono pięć podpisów, deklarację o zachowaniu oryginalnej receptury, przysięgę wierności tradycji oraz spisano pierwotny przepis napoju. Ten skromny, lecz niezniszczalny duchem akt stał się symbolem tego, czym MokejPol jest do dziś — autentyczny, bez pretensji, zrodzony z czystej pasji.</p>
+      <p data-i18n="historia_p4">Gdy emocje opadły, a ostatnie iskry ogniska dogasały, pięciu założycieli wiedziało, że ten moment trzeba uwiecznić. Nie mieli przy sobie ani papieru, ani notariusza — ale mieli determinację. Pierwszy zarys firmy MokejPol, uroczysta umowa założycielska, został spisany na tym, co było pod ręką — na papierze toaletowym. Na kruchym zwoju złożono pięć podpisów, deklarację o zachowaniu oryginalnej receptury, przysięgę wierności tradycji oraz spisano pierwotny przepis napoju. Ten skromny, lecz niezniszczalny duchem akt stał się symbolem tego, czym MokejPol jest do dziś — autentyczny, bez pretensji, zrodzony z czystej pasji.</p>
     </div>
   </div>
 </section>
@@ -1201,8 +1249,8 @@ footer > * { position: relative; z-index: 1; }
   <div class="nazwa-bg"></div>
   <div class="nazwa-content">
     <div class="section-header reveal">
-      <span class="section-label">Za nazwą</span>
-      <h2 class="section-title">Co kryje się w nazwie <em>MokejPol</em>?</h2>
+      <span class="section-label" data-i18n="nazwa_label">Za nazwą</span>
+      <h2 class="section-title" data-i18n-html="nazwa_title">Co kryje się w nazwie <em>MokejPol</em>?</h2>
     </div>
 
     <div class="nazwa-explanation reveal">
@@ -1212,8 +1260,8 @@ footer > * { position: relative; z-index: 1; }
         <span class="nazwa-part pol">Pol</span>
       </div>
 
-      <p class="nazwa-desc"><strong>Mokej</strong> — od pierwszych liter imion pięciu założycieli, którzy przy ognisku w Turawie stworzyli coś, co przetrwało próbę czasu.</p>
-      <p class="nazwa-desc"><strong>Pol</strong> — bo korzenie tej marki są głęboko polskie. Turawa, natura, przyjaciele — to nasza duma.</p>
+      <p class="nazwa-desc" data-i18n-html="nazwa_mokej"><strong>Mokej</strong> — od pierwszych liter imion pięciu założycieli, którzy przy ognisku w Turawie stworzyli coś, co przetrwało próbę czasu.</p>
+      <p class="nazwa-desc" data-i18n-html="nazwa_pol"><strong>Pol</strong> — bo korzenie tej marki są głęboko polskie. Turawa, natura, przyjaciele — to nasza duma.</p>
     </div>
 
     <div class="ornament">
@@ -1252,29 +1300,29 @@ footer > * { position: relative; z-index: 1; }
 <!-- SMAKI -->
 <section class="smaki" id="smaki">
   <div class="section-header reveal">
-    <span class="section-label">Kolekcja</span>
-    <h2 class="section-title">Nasze <em>Smaki</em></h2>
+    <span class="section-label" data-i18n="smaki_label">Kolekcja</span>
+    <h2 class="section-title" data-i18n-html="smaki_title">Nasze <em>Smaki</em></h2>
   </div>
 
   <div class="smaki-grid">
     <div class="flavor-card malinowa" data-delay="0">
       <img src="image/herbaciana-malinowa-05l.png" alt="Herbaciana Malinowa" class="flavor-label-img">
-      <h3 class="flavor-name">Malinowa</h3>
-      <p class="flavor-desc">Słodycz letnich malin spleciona z aromatem herbaty — jak spacer przez leśną polanę w ciepły sierpniowy wieczór.</p>
+      <h3 class="flavor-name" data-i18n="flavor_malinowa">Malinowa</h3>
+      <p class="flavor-desc" data-i18n="flavor_malinowa_desc">Słodycz letnich malin spleciona z aromatem herbaty — jak spacer przez leśną polanę w ciepły sierpniowy wieczór.</p>
       <p class="flavor-sizes">0,5L &nbsp;&bull;&nbsp; 1L</p>
     </div>
 
     <div class="flavor-card mietowa" data-delay="150">
       <img src="image/herbaciana-mietowa-05l.png" alt="Herbaciana Miętowa" class="flavor-label-img">
-      <h3 class="flavor-name">Miętowa</h3>
-      <p class="flavor-desc">Orzeźwiająca mięta i głębia herbacianego nalewu — jak poranny oddech nad jeziorem, gdy rosa jeszcze leży na trawie.</p>
+      <h3 class="flavor-name" data-i18n="flavor_mietowa">Miętowa</h3>
+      <p class="flavor-desc" data-i18n="flavor_mietowa_desc">Orzeźwiająca mięta i głębia herbacianego nalewu — jak poranny oddech nad jeziorem, gdy rosa jeszcze leży na trawie.</p>
       <p class="flavor-sizes">0,2L &nbsp;&bull;&nbsp; 0,5L</p>
     </div>
 
     <div class="flavor-card truskawkowa" data-delay="300">
       <img src="image/herbaciana-truskawkowa-05l.png" alt="Herbaciana Truskawkowa" class="flavor-label-img">
-      <h3 class="flavor-name">Truskawkowa</h3>
-      <p class="flavor-desc">Soczystość polskich truskawek w objęciach herbacianej tradycji — smak, który przywołuje wspomnienia beztroskich lat.</p>
+      <h3 class="flavor-name" data-i18n="flavor_truskawkowa">Truskawkowa</h3>
+      <p class="flavor-desc" data-i18n="flavor_truskawkowa_desc">Soczystość polskich truskawek w objęciach herbacianej tradycji — smak, który przywołuje wspomnienia beztroskich lat.</p>
       <p class="flavor-sizes">0,5L</p>
     </div>
   </div>
@@ -1282,7 +1330,7 @@ footer > * { position: relative; z-index: 1; }
   <div class="smaki-deco reveal">
     <img src="image/maliny-laski.jpg" alt="Maliny ze wzgórz Lasek">
   </div>
-  <p class="reveal" style="max-width: 600px; margin: 2rem auto 0; text-align: center; font-style: italic; font-size: 1.05rem; line-height: 1.8; color: var(--text-mid); opacity: 0.8;">Nasze maliny dojrzewają na słonecznych wzgórzach Lasek, gdzie ciepły wiatr niesie zapach dzikiego lasu, a każdy owoc chłonie w sobie złoto letniego słońca.</p>
+  <p class="reveal" style="max-width: 600px; margin: 2rem auto 0; text-align: center; font-style: italic; font-size: 1.05rem; line-height: 1.8; color: var(--text-mid); opacity: 0.8;" data-i18n="smaki_maliny">Nasze maliny dojrzewają na słonecznych wzgórzach Lasek, gdzie ciepły wiatr niesie zapach dzikiego lasu, a każdy owoc chłonie w sobie złoto letniego słońca.</p>
 </section>
 
 <!-- PRODUKT -->
@@ -1290,31 +1338,31 @@ footer > * { position: relative; z-index: 1; }
   <div class="produkt-bg"></div>
   <div class="produkt-content">
     <div class="section-header reveal">
-      <span class="section-label">Rzemiosło</span>
-      <h2 class="section-title">Każda butelka to historia</h2>
+      <span class="section-label" data-i18n="produkt_label">Rzemiosło</span>
+      <h2 class="section-title" data-i18n="produkt_title">Każda butelka to historia</h2>
     </div>
 
-    <blockquote class="produkt-quote" data-animate="fade">
+    <blockquote class="produkt-quote" data-animate="fade" data-i18n-html="produkt_quote">
       Butelka nalana wielkiej pasji sumą,<br>
       szlachetna herbaciana olbrzymią naszą dumą.
     </blockquote>
 
     <div class="produkt-details">
       <div class="produkt-detail" data-animate="fade" data-delay="100">
-        <div class="produkt-detail-label">Zawartość alkoholu</div>
-        <div class="produkt-detail-value">10,5% obj.</div>
+        <div class="produkt-detail-label" data-i18n="detail_abv_label">Zawartość alkoholu</div>
+        <div class="produkt-detail-value" data-i18n="detail_abv_value">10,5% obj.</div>
       </div>
       <div class="produkt-detail" data-animate="fade" data-delay="200">
-        <div class="produkt-detail-label">Pochodzenie</div>
-        <div class="produkt-detail-value">Turawa, Polska</div>
+        <div class="produkt-detail-label" data-i18n="detail_origin_label">Pochodzenie</div>
+        <div class="produkt-detail-value" data-i18n="detail_origin_value">Turawa, Polska</div>
       </div>
       <div class="produkt-detail" data-animate="fade" data-delay="300">
-        <div class="produkt-detail-label">Rok powstania</div>
+        <div class="produkt-detail-label" data-i18n="detail_year_label">Rok powstania</div>
         <div class="produkt-detail-value">2018</div>
       </div>
       <div class="produkt-detail" data-animate="fade" data-delay="400">
-        <div class="produkt-detail-label">Składniki</div>
-        <div class="produkt-detail-value">Szlachetny spirytus &middot; Herbata &middot; Sok</div>
+        <div class="produkt-detail-label" data-i18n="detail_ingredients_label">Składniki</div>
+        <div class="produkt-detail-value" data-i18n-html="detail_ingredients_value">Szlachetny spirytus &middot; Herbata &middot; Sok</div>
       </div>
     </div>
   </div>
@@ -1326,10 +1374,154 @@ footer > * { position: relative; z-index: 1; }
   <img src="image/mokejpol-logo.png" alt="MokejPol" class="footer-logo">
   <p class="footer-est">Est. 2018 &nbsp;&middot;&nbsp; Turawa, Poland</p>
   <div class="footer-divider"></div>
-  <p class="footer-warning">Alkohol. Tylko dla osób pełnoletnich. Spożywaj odpowiedzialnie. Nadmierne spożywanie alkoholu szkodzi zdrowiu.</p>
+  <p class="footer-warning" data-i18n="footer_warning">Alkohol. Tylko dla osób pełnoletnich. Spożywaj odpowiedzialnie. Nadmierne spożywanie alkoholu szkodzi zdrowiu.</p>
 </footer>
 
 <script>
+// ============================================
+// TRANSLATIONS
+// ============================================
+const translations = {
+  pl: {
+    // Age gate
+    age_title: 'Witaj w MokejPol',
+    age_text: 'Ta strona zawiera treści dotyczące napojów alkoholowych. Czy masz ukończone 18 lat?',
+    age_yes: 'Tak, mam 18 lat',
+    age_no: 'Nie',
+    // Nav
+    nav_start: 'Start',
+    nav_historia: 'Historia',
+    nav_nazwa: 'Nazwa',
+    nav_smaki: 'Smaki',
+    nav_produkt: 'Produkt',
+    // Hero
+    hero_tagline: '&ldquo;Butelka nalana wielkiej pasji sumą,<br>szlachetna herbaciana olbrzymią naszą dumą.&rdquo;',
+    hero_subtitle: 'Found in Turawa, Poland',
+    hero_discover: 'Odkryj',
+    // Historia
+    historia_label: 'Rozdział Pierwszy',
+    historia_title: 'Jak narodziła się <em>Herbaciana</em>',
+    historia_p1: 'Rok 2018. Turawa, skrzyżowanie Harcerskiej i Biwakowej. Pięciu przyjaciół, letni wieczór i bezgraniczna ciekawość — tak zaczęła się historia Herbacianej. Co się stanie, gdy połączymy szlachetny spirytus z aromatyczną herbatą i naturalnym sokiem owocowym? Odpowiedź okazała się prostsza niż pytanie — powstanie coś wyjątkowego.',
+    historia_p2: 'Pierwsza degustacja odbyła się przy ognisku, nad brzegiem jeziora. Smak był tak nieoczekiwanie harmonijny, że wiedzieliśmy — to nie był tylko eksperyment. To było odkrycie. Odkrycie, które zasługiwało na coś więcej niż wspomnienie.',
+    historia_p3: 'Tamtego wieczoru zrodził się nie tylko napój, ale i marzenie. Marzenie o marce, która przeniesie ducha wspólnych chwil, polskiej natury i rzemieślniczej pasji do każdej butelki. Tak narodził się MokejPol.',
+    historia_p4: 'Gdy emocje opadły, a ostatnie iskry ogniska dogasały, pięciu założycieli wiedziało, że ten moment trzeba uwiecznić. Nie mieli przy sobie ani papieru, ani notariusza — ale mieli determinację. Pierwszy zarys firmy MokejPol, uroczysta umowa założycielska, został spisany na tym, co było pod ręką — na papierze toaletowym. Na kruchym zwoju złożono pięć podpisów, deklarację o zachowaniu oryginalnej receptury, przysięgę wierności tradycji oraz spisano pierwotny przepis napoju. Ten skromny, lecz niezniszczalny duchem akt stał się symbolem tego, czym MokejPol jest do dziś — autentyczny, bez pretensji, zrodzony z czystej pasji.',
+    // Nazwa
+    nazwa_label: 'Za nazwą',
+    nazwa_title: 'Co kryje się w nazwie <em>MokejPol</em>?',
+    nazwa_mokej: '<strong>Mokej</strong> — od pierwszych liter imion pięciu założycieli, którzy przy ognisku w Turawie stworzyli coś, co przetrwało próbę czasu.',
+    nazwa_pol: '<strong>Pol</strong> — bo korzenie tej marki są głęboko polskie. Turawa, natura, przyjaciele — to nasza duma.',
+    // Smaki
+    smaki_label: 'Kolekcja',
+    smaki_title: 'Nasze <em>Smaki</em>',
+    flavor_malinowa: 'Malinowa',
+    flavor_malinowa_desc: 'Słodycz letnich malin spleciona z aromatem herbaty — jak spacer przez leśną polanę w ciepły sierpniowy wieczór.',
+    flavor_mietowa: 'Miętowa',
+    flavor_mietowa_desc: 'Orzeźwiająca mięta i głębia herbacianego nalewu — jak poranny oddech nad jeziorem, gdy rosa jeszcze leży na trawie.',
+    flavor_truskawkowa: 'Truskawkowa',
+    flavor_truskawkowa_desc: 'Soczystość polskich truskawek w objęciach herbacianej tradycji — smak, który przywołuje wspomnienia beztroskich lat.',
+    smaki_maliny: 'Nasze maliny dojrzewają na słonecznych wzgórzach Lasek, gdzie ciepły wiatr niesie zapach dzikiego lasu, a każdy owoc chłonie w sobie złoto letniego słońca.',
+    // Produkt
+    produkt_label: 'Rzemiosło',
+    produkt_title: 'Każda butelka to historia',
+    produkt_quote: 'Butelka nalana wielkiej pasji sumą,<br>szlachetna herbaciana olbrzymią naszą dumą.',
+    detail_abv_label: 'Zawartość alkoholu',
+    detail_abv_value: '10,5% obj.',
+    detail_origin_label: 'Pochodzenie',
+    detail_origin_value: 'Turawa, Polska',
+    detail_year_label: 'Rok powstania',
+    detail_ingredients_label: 'Składniki',
+    detail_ingredients_value: 'Szlachetny spirytus &middot; Herbata &middot; Sok',
+    // Footer
+    footer_warning: 'Alkohol. Tylko dla osób pełnoletnich. Spożywaj odpowiedzialnie. Nadmierne spożywanie alkoholu szkodzi zdrowiu.',
+  },
+  en: {
+    // Age gate
+    age_title: 'Welcome to MokejPol',
+    age_text: 'This website contains content related to alcoholic beverages. Are you 18 or older?',
+    age_yes: 'Yes, I am 18+',
+    age_no: 'No',
+    // Nav
+    nav_start: 'Home',
+    nav_historia: 'Story',
+    nav_nazwa: 'Name',
+    nav_smaki: 'Flavors',
+    nav_produkt: 'Product',
+    // Hero
+    hero_tagline: '&ldquo;A bottle filled with the sum of great passion,<br>noble Herbaciana, our tremendous pride.&rdquo;',
+    hero_subtitle: 'Found in Turawa, Poland',
+    hero_discover: 'Discover',
+    // Historia
+    historia_label: 'Chapter One',
+    historia_title: 'How <em>Herbaciana</em> was born',
+    historia_p1: 'The year 2018. Turawa, at the crossroads of Harcerska and Biwakowa streets. Five friends, a summer evening, and boundless curiosity — that is how the story of Herbaciana began. What happens when you combine fine spirit with aromatic tea and natural fruit juice? The answer turned out to be simpler than the question — something extraordinary is born.',
+    historia_p2: 'The first tasting took place by a bonfire, on the shore of the lake. The flavor was so unexpectedly harmonious that we knew — this was not just an experiment. It was a discovery. A discovery that deserved to be more than just a memory.',
+    historia_p3: 'That evening gave birth not only to a drink, but to a dream. A dream of a brand that would carry the spirit of shared moments, Polish nature, and artisan passion in every bottle. Thus, MokejPol was born.',
+    historia_p4: 'When the excitement faded and the last sparks of the bonfire died out, the five founders knew this moment had to be immortalized. They had neither paper nor a notary — but they had determination. The first outline of MokejPol, a solemn founding agreement, was written on whatever was at hand — toilet paper. On that fragile scroll, five signatures were placed, along with a declaration to preserve the original recipe, an oath of fidelity to tradition, and the original drink formula. This humble yet spiritually indestructible document became a symbol of what MokejPol still is today — authentic, unpretentious, born from pure passion.',
+    // Nazwa
+    nazwa_label: 'Behind the Name',
+    nazwa_title: 'What lies behind <em>MokejPol</em>?',
+    nazwa_mokej: '<strong>Mokej</strong> — from the first letters of the five founders\' names, who by a bonfire in Turawa created something that has stood the test of time.',
+    nazwa_pol: '<strong>Pol</strong> — because the roots of this brand are deeply Polish. Turawa, nature, friends — that is our pride.',
+    // Smaki
+    smaki_label: 'Collection',
+    smaki_title: 'Our <em>Flavors</em>',
+    flavor_malinowa: 'Raspberry',
+    flavor_malinowa_desc: 'The sweetness of summer raspberries intertwined with the aroma of tea — like a walk through a forest glade on a warm August evening.',
+    flavor_mietowa: 'Mint',
+    flavor_mietowa_desc: 'Refreshing mint and the depth of a tea infusion — like a morning breath by the lake, when dew still rests on the grass.',
+    flavor_truskawkowa: 'Strawberry',
+    flavor_truskawkowa_desc: 'The juiciness of Polish strawberries embraced by tea tradition — a taste that brings back memories of carefree years.',
+    smaki_maliny: 'Our raspberries ripen on the sun-drenched hills of Laski, where warm winds carry the scent of wild forest, and every fruit absorbs the gold of the summer sun.',
+    // Produkt
+    produkt_label: 'Craftsmanship',
+    produkt_title: 'Every bottle tells a story',
+    produkt_quote: 'A bottle filled with the sum of great passion,<br>noble Herbaciana, our tremendous pride.',
+    detail_abv_label: 'Alcohol Content',
+    detail_abv_value: '10.5% ABV',
+    detail_origin_label: 'Origin',
+    detail_origin_value: 'Turawa, Poland',
+    detail_year_label: 'Year Founded',
+    detail_ingredients_label: 'Ingredients',
+    detail_ingredients_value: 'Fine spirit &middot; Tea &middot; Juice',
+    // Footer
+    footer_warning: 'Alcohol. For adults only. Drink responsibly. Excessive alcohol consumption is harmful to your health.',
+  }
+};
+
+let currentLang = localStorage.getItem('mokejpol_lang') || 'pl';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('mokejpol_lang', lang);
+  document.documentElement.lang = lang;
+
+  // Update text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key] !== undefined) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  // Update HTML content (for elements with tags like <em>, <strong>, <br>)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (translations[lang][key] !== undefined) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+  });
+}
+
+// Apply saved language on load
+if (currentLang !== 'pl') {
+  setLang(currentLang);
+}
+
 // ============================================
 // AGE GATE
 // ============================================
